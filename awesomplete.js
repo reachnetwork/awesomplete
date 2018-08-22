@@ -7,7 +7,7 @@
 
 (function () {
 
-var _ = function (input, o, customRoot) {
+var _ = function (input, o, customRoot, parentizeContainer=false) {
 	var me = this;
 
     // Keep track of number of instances for unique IDs
@@ -45,7 +45,7 @@ var _ = function (input, o, customRoot) {
 
 	// Create necessary elements
 
-	this.container = this.container(input, this.customRoot);
+	this.container = this.container(input, this.customRoot, parentizeContainer);
 
 	this.ul = $.create("ul", {
 		hidden: "hidden",
@@ -359,10 +359,10 @@ _.SORT_BYLENGTH = function (a, b) {
 	return a < b? -1 : 1;
 };
 
-_.CONTAINER = function (input, customRoot) {
+_.CONTAINER = function (input, customRoot, parent) {
 	return $.create("div", {
 		className: "awesomplete",
-		around: input
+		around: parent ? input.parentNode : input
 	}, customRoot);
 }
 
