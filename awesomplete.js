@@ -363,7 +363,7 @@ _.CONTAINER = function (input, customRoot) {
 	return $.create("div", {
 		className: "awesomplete",
 		around: input
-	}. customRoot);
+	}, customRoot);
 }
 
 _.ITEM = function (text, input, item_id, customRoot) {
