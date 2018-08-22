@@ -7,7 +7,7 @@
 
 (function () {
 
-var _ = function (input, o) {
+var _ = function (input, o, customRoot) {
 	var me = this;
 
     // Keep track of number of instances for unique IDs
@@ -18,7 +18,7 @@ var _ = function (input, o) {
 
 	this.isOpened = false;
 
-	this.input = $(input);
+	this.input = $(input, customRoot);
 	this.input.setAttribute("autocomplete", "off");
 	this.input.setAttribute("aria-owns", "awesomplete_list_" + this.count);
 	this.input.setAttribute("role", "combobox");
