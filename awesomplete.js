@@ -316,7 +316,7 @@ _.prototype = {
 			this.suggestions = this.suggestions.slice(0, this.maxItems);
 
 			this.suggestions.forEach(function(text, index) {
-					me.ul.appendChild(me.item(text, value, index. me.customRoot));
+					me.ul.appendChild(me.item(text, value, index, me.customRoot));
 				});
 
 			if (this.ul.children.length === 0) {
