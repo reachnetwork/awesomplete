@@ -435,7 +435,7 @@ function $$(expr, con) {
 	return slice.call((con || document).querySelectorAll(expr));
 }
 
-$.create = function(tag, o, customRoot, parentize = false) {
+$.create = function(tag, o, customRoot) {
 	var element = document.createElement(tag);
 
 	for (var i in o) {
@@ -446,7 +446,7 @@ $.create = function(tag, o, customRoot, parentize = false) {
 		}
 		else if (i === "around") {
       var ref = $(val, customRoot);
-      if(parentize) ref = ref.parentNode;
+      if(o.parentize) ref = ref.parentNode;
 			ref.parentNode.insertBefore(element, ref);
 			element.appendChild(ref);
 
