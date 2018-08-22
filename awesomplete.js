@@ -359,10 +359,11 @@ _.SORT_BYLENGTH = function (a, b) {
 	return a < b? -1 : 1;
 };
 
-_.CONTAINER = function (input, customRoot, parent) {
+_.CONTAINER = function (input, customRoot, parentize) {
 	return $.create("div", {
 		className: "awesomplete",
-		around: parent ? input.parentNode : input
+    around: input,
+    parentize: parentize
 	}, customRoot);
 }
 
@@ -434,7 +435,7 @@ function $$(expr, con) {
 	return slice.call((con || document).querySelectorAll(expr));
 }
 
-$.create = function(tag, o, customRoot) {
+$.create = function(tag, o, customRoot, parentize = false) {
 	var element = document.createElement(tag);
 
 	for (var i in o) {
@@ -444,7 +445,8 @@ $.create = function(tag, o, customRoot) {
 			$(val, customRoot).appendChild(element);
 		}
 		else if (i === "around") {
-			var ref = $(val, customRoot);
+      var ref = $(val, customRoot);
+      if(parentize) ref = ref.parentNode;
 			ref.parentNode.insertBefore(element, ref);
 			element.appendChild(ref);
 
