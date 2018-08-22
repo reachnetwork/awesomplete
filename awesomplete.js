@@ -45,14 +45,14 @@ var _ = function (input, o, customRoot) {
 
 	// Create necessary elements
 
-	this.container = this.container(input);
+	this.container = this.container(input, this.customRoot);
 
 	this.ul = $.create("ul", {
 		hidden: "hidden",
         role: "listbox",
         id: "awesomplete_list_" + this.count,
 		inside: this.container
-	});
+	}, this.customRoot);
 
 	this.status = $.create("span", {
 		className: "visually-hidden",
@@ -61,7 +61,7 @@ var _ = function (input, o, customRoot) {
         "aria-atomic": true,
         inside: this.container,
         textContent: this.minChars != 0 ? ("Type " + this.minChars + " or more characters for results.") : "Begin typing for results."
-	});
+	}, this.customRoot);
 
 	// Bind events
 
@@ -316,7 +316,7 @@ _.prototype = {
 			this.suggestions = this.suggestions.slice(0, this.maxItems);
 
 			this.suggestions.forEach(function(text, index) {
-					me.ul.appendChild(me.item(text, value, index));
+					me.ul.appendChild(me.item(text, value, index. this.customRoot));
 				});
 
 			if (this.ul.children.length === 0) {
@@ -359,20 +359,20 @@ _.SORT_BYLENGTH = function (a, b) {
 	return a < b? -1 : 1;
 };
 
-_.CONTAINER = function (input) {
+_.CONTAINER = function (input, customRoot) {
 	return $.create("div", {
 		className: "awesomplete",
 		around: input
-	});
+	}. customRoot);
 }
 
-_.ITEM = function (text, input, item_id) {
+_.ITEM = function (text, input, item_id, customRoot) {
 	var html = input.trim() === "" ? text : text.replace(RegExp($.regExpEscape(input.trim()), "gi"), "<mark>$&</mark>");
 	return $.create("li", {
 		innerHTML: html,
 		"aria-selected": "false",
         "id": "awesomplete_list_" + this.count + "_item_" + item_id
-	});
+	}, customRoot);
 };
 
 _.REPLACE = function (text) {
@@ -434,7 +434,7 @@ function $$(expr, con) {
 	return slice.call((con || document).querySelectorAll(expr));
 }
 
-$.create = function(tag, o) {
+$.create = function(tag, o, customRoot) {
 	var element = document.createElement(tag);
 
 	for (var i in o) {
