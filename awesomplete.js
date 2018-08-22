@@ -7,7 +7,7 @@
 
 (function () {
 
-var _ = function (input, o, customRoot, parentizeContainer=false) {
+var _ = function (input, o, customRoot, parentizeContainer=null) {
 	var me = this;
 
     // Keep track of number of instances for unique IDs
@@ -446,7 +446,11 @@ $.create = function(tag, o, customRoot) {
 		}
 		else if (i === "around") {
       var ref = $(val, customRoot);
-      if(o.parentize) ref = ref.parentNode;
+      if(o.parentize) {
+        for(let i = 0; i < o.parentize; i++) {
+          ref = ref.parentNode;
+        }
+      }
 			ref.parentNode.insertBefore(element, ref);
 			element.appendChild(ref);
 
