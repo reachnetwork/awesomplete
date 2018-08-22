@@ -19,7 +19,7 @@ var _ = function (input, o, customRoot) {
   this.isOpened = false;
   this.customRoot = customRoot;
 
-	this.input = $(input, this.customRoot);
+	this.input = $(input, customRoot);
 	this.input.setAttribute("autocomplete", "off");
 	this.input.setAttribute("aria-owns", "awesomplete_list_" + this.count);
 	this.input.setAttribute("role", "combobox");
@@ -145,7 +145,7 @@ _.prototype = {
 				this._list = list.split(/\s*,\s*/);
 		}
 		else { // Element or CSS selector
-			list = $(list, this.customRoot);
+			list = $(list, customRoot);
 
 			if (list && list.children) {
 				var items = [];
@@ -441,10 +441,10 @@ $.create = function(tag, o) {
 		var val = o[i];
 
 		if (i === "inside") {
-			$(val, this.customRoot).appendChild(element);
+			$(val, customRoot).appendChild(element);
 		}
 		else if (i === "around") {
-			var ref = $(val, this.customRoot);
+			var ref = $(val, customRoot);
 			ref.parentNode.insertBefore(element, ref);
 			element.appendChild(ref);
 
